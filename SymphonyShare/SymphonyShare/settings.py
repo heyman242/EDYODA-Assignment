@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'SymphonyShare.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'musicdb',
+        'USER': 'himanshu5',
+        'PASSWORD': 'nk2KeyHv5xAZMxR',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
