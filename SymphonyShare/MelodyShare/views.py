@@ -6,7 +6,7 @@ from .models import NewUser
 
 def login_view(request):
     if request.method == 'POST':
-        email_id = request.POST['email_id']
+        email_id = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=email_id, password=password)
         if user is not None and hasattr(user, 'newuser'):
