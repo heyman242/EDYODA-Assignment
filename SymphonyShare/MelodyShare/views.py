@@ -4,11 +4,6 @@ from django.contrib.auth.models import User
 from .models import NewUser
 
 
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from .models import NewUser
-
 def login_view(request):
     if request.method == 'POST':
         email_id = request.POST['email_id']
