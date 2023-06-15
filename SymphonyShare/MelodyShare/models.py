@@ -1,7 +1,6 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 
 class NewUser(models.Model):
@@ -17,6 +16,7 @@ class NewUser(models.Model):
 class PrivateMusicRecord(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
+    media_file = models.FileField(upload_to='private_music/', null=True)
 
     def __str__(self):
         return self.name
@@ -25,6 +25,7 @@ class PrivateMusicRecord(models.Model):
 class PublicMusicRecord(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
+    media_file = models.FileField(upload_to='public_music/', null=True)
 
     def __str__(self):
         return self.name
@@ -34,6 +35,7 @@ class ProtectedMusicRecord(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     email_id = ArrayField(models.CharField(max_length=10), default=list)
+    media_file = models.FileField(upload_to='protected_music/', null=True)
 
     def __str__(self):
         return self.name
