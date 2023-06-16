@@ -20,6 +20,7 @@ def login_view(request):
     else:
         return render(request, 'login.html')
 
+
 def signup(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -68,4 +69,25 @@ def main(request, user_id):
 
     return render(request, 'main.html', context)
 
+@login_required
+def upload(request, user_id=None):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        record_type = request.POST.get('record_type')
+        media_file = request.FILES.get('media_file')
 
+        if record_type == 'private':
+            record = PrivateMusicRecord(name=name, description=description, media_file=media_file)
+        elif record_type == 'public':
+            record = PublicMusicRecord(name=name, description=description, media_file=media_file)
+        elif record_type == 'protected':
+            email_ids = request.POST.get('email_ids').split(',')
+            record = ProtectedMusicRecord(name=name, description=description, email_id=email_ids, media_file=media_file)
+        else:
+            return render(request, 'upload.html', {'error': 'Invalid record type.'})
+
+        record.save()
+        return redirect('MelodyShare:main', user_id=request.user.id)
+    else:
+        return render(request, 'upload.html')

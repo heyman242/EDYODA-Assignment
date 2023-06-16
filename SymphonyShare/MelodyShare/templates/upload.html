@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Music Record</title>
+
+</head>
+<body>
+    <h2>Upload Music Record</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description" required></textarea>
+
+        <label for="media_file">Media File:</label>
+        <input type="file" name="media_file">
+
+        <label for="record_type">Record Type:</label>
+        <select name="record_type">
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+            <option value="protected">Protected</option>
+        </select>
+
+        <label for="email_ids">Email IDs (for protected music):</label>
+        <input type="text" name="email_ids">
+
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>

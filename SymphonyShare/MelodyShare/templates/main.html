@@ -2,60 +2,72 @@
 <html>
 <head>
     <title>Main Page</title>
+
 </head>
 <body>
+    <h1>Main Page</h1>
+
+    <a href="{% url 'MelodyShare:upload' user_id=user_id %}">Upload Music Record</a>
+
     <h1>Private Music Records</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Media File</th>
+        </tr>
         {% for record in private_records %}
-        <li>
-            <strong>{{ record.name }}</strong>
-            <p>{{ record.description }}</p>
-            {% if record.media_file %}
-            <a href="{{ record.media_file.url }}">Download Media File</a>
-            {% endif %}
-        </li>
+        <tr>
+            <td>{{ record.name }}</td>
+            <td>{{ record.description }}</td>
+            <td>
+                {% if record.media_file %}
+                <a href="{{ record.media_file.url }}">Download Media File</a>
+                {% endif %}
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
 
     <h1>Public Music Records</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Media File</th>
+        </tr>
         {% for record in public_records %}
-        <li>
-            <strong>{{ record.name }}</strong>
-            <p>{{ record.description }}</p>
-            {% if record.media_file %}
-            <a href="{{ record.media_file.url }}">Download Media File</a>
-            {% endif %}
-        </li>
+        <tr>
+            <td>{{ record.name }}</td>
+            <td>{{ record.description }}</td>
+            <td>
+                {% if record.media_file %}
+                <a href="{{ record.media_file.url }}">Download Media File</a>
+                {% endif %}
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
 
     <h1>Protected Music Records</h1>
-    <ul>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Media File</th>
+        </tr>
         {% for record in protected_records %}
-        <li>
-            <strong>{{ record.name }}</strong>
-            <p>{{ record.description }}</p>
-            {% if record.media_file %}
-            <a href="{{ record.media_file.url }}">Download Media File</a>
-            {% endif %}
-        </li>
+        <tr>
+            <td>{{ record.name }}</td>
+            <td>{{ record.description }}</td>
+            <td>
+                {% if record.media_file %}
+                <a href="{{ record.media_file.url }}">Download Media File</a>
+                {% endif %}
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
 
-    <h2>Upload Music Record</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="name">Name:</label>
-        <input type="text" name="name" required><br>
-
-        <label for="description">Description:</label>
-        <textarea name="description" required></textarea><br>
-
-        <label for="media_file">Media File:</label>
-        <input type="file" name="media_file"><br>
-
-        <input type="submit" value="Upload">
-    </form>
 </body>
 </html>
