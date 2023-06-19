@@ -55,13 +55,17 @@ def signup(request):
         return render(request, 'signup.html')
 
 
+
 @login_required
 def main(request, user_id):
     private_records = PrivateMusicRecord.objects.filter(user_id=user_id)
     public_records = PublicMusicRecord.objects.all()
 
-    if user_id:
-        protected_records = ProtectedMusicRecord.objects.filter(email_ids__contains=[user_id])
+    user = User.objects.get(id=user_id)
+    user_email = user.email
+
+    if user_email:
+        protected_records = ProtectedMusicRecord.objects.filter(email_ids__contains=[user_email])
     else:
         protected_records = ProtectedMusicRecord.objects.all()
 

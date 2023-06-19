@@ -49,6 +49,16 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+        .upload-button{
+        position: absolute;
+
+            background-color: #888;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            }
+
 
         .logout-button:hover {
             background-color: #555;
@@ -70,13 +80,26 @@
             background-color: #555;
             color: #fff;
         }
+
+        .greeting {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Main Page</h1>
 
-    <a href="{% url 'MelodyShare:upload' user_id=user_id %}">Upload Music Record</a>
-    <a href="{% url 'MelodyShare:login' %}">Logout</a>
+
+    <div class="greeting">
+        {% if request.user.is_authenticated %}
+       <h1> <p>Hi {{ request.user.username }}, welcome to SymphonyShare.</p></h1>
+        {% endif %}
+    </div>
+
+    <a class="logout-button" href="{% url 'MelodyShare:login' %}">Logout</a>
+    <a class="upload-button" href="{% url 'MelodyShare:upload' user_id=user_id %}">Upload Music Record</a>
+    <br>
+    <br>
+
 
     <h1>Private Music Records</h1>
     <table>
