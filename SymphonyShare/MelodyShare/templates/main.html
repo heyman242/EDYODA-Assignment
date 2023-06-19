@@ -2,12 +2,81 @@
 <html>
 <head>
     <title>Main Page</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            font-size: 18px;
+        }
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #888;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #888;
+        }
+
+        th {
+            background-color: #555;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <h1>Main Page</h1>
 
     <a href="{% url 'MelodyShare:upload' user_id=user_id %}">Upload Music Record</a>
+    <a href="{% url 'MelodyShare:login' %}">Logout</a>
 
     <h1>Private Music Records</h1>
     <table>

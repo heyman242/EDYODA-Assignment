@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'SymphonyShare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'musicdb',
-        'USER': 'himanshu5',
-        'PASSWORD': 'nk2KeyHv5xAZMxR',
+        'NAME': 'edyodadb',
+        'USER': 'himanshu123',
+        'PASSWORD': 'himanshu123',
         'HOST': 'localhost',
         'PORT': '5432',
     }

@@ -2,7 +2,9 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import NewUser, PrivateMusicRecord, PublicMusicRecord, ProtectedMusicRecord
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+
 
 
 def login_view(request):
@@ -53,12 +55,15 @@ def signup(request):
         return render(request, 'signup.html')
 
 
-
 @login_required
 def main(request, user_id):
-    private_records = PrivateMusicRecord.objects.all()
+    private_records = PrivateMusicRecord.objects.filter(user_id=user_id)
     public_records = PublicMusicRecord.objects.all()
-    protected_records = ProtectedMusicRecord.objects.all()
+
+    if user_id:
+        protected_records = ProtectedMusicRecord.objects.filter(email_ids__contains=[user_id])
+    else:
+        protected_records = ProtectedMusicRecord.objects.all()
 
     context = {
         'private_records': private_records,
@@ -69,8 +74,10 @@ def main(request, user_id):
 
     return render(request, 'main.html', context)
 
+
+
 @login_required
-def upload(request, user_id=None):
+def upload(request, user_id):
     if request.method == 'POST':
         name = request.POST.get('name')
         description = request.POST.get('description')
@@ -78,12 +85,19 @@ def upload(request, user_id=None):
         media_file = request.FILES.get('media_file')
 
         if record_type == 'private':
-            record = PrivateMusicRecord(name=name, description=description, media_file=media_file)
+            record = PrivateMusicRecord(name=name, description=description, media_file=media_file, user_id=user_id)
         elif record_type == 'public':
             record = PublicMusicRecord(name=name, description=description, media_file=media_file)
         elif record_type == 'protected':
-            email_ids = request.POST.get('email_ids').split(',')
-            record = ProtectedMusicRecord(name=name, description=description, email_id=email_ids, media_file=media_file)
+            email_ids = [email.strip() for email in request.POST.get('email_ids').split(',') if email.strip()]
+            allowed_emails = []
+            for email in email_ids:
+                try:
+                    NewUser.objects.get(email_id=email)
+                    allowed_emails.append(email)
+                except ObjectDoesNotExist:
+                    pass
+            record = ProtectedMusicRecord(name=name, description=description, email_ids=allowed_emails, media_file=media_file)
         else:
             return render(request, 'upload.html', {'error': 'Invalid record type.'})
 

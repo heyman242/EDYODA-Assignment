@@ -17,6 +17,7 @@ class PrivateMusicRecord(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     media_file = models.FileField(upload_to='private_music/', null=True)
+    user = models.ForeignKey(NewUser, on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.name
@@ -34,7 +35,7 @@ class PublicMusicRecord(models.Model):
 class ProtectedMusicRecord(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
-    email_id = ArrayField(models.CharField(max_length=10), default=list)
+    email_ids = ArrayField(models.CharField(max_length=100), default=list)
     media_file = models.FileField(upload_to='protected_music/', null=True)
 
     def __str__(self):

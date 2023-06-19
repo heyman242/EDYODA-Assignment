@@ -2,7 +2,56 @@
 <html>
 <head>
     <title>Upload Music Record</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"],
+        input[type="submit"] {
+            background-color: #888;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            margin-top: 20px;
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 10px;
+            background-color: #888;
+            color: #fff;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <h2>Upload Music Record</h2>
@@ -25,7 +74,8 @@
         </select>
 
         <label for="email_ids">Email IDs (for protected music):</label>
-        <input type="text" name="email_ids">
+        <input type="text" name="email_ids" required>
+
 
         <input type="submit" value="Upload">
     </form>
